@@ -4,9 +4,7 @@ export const studentSignupSchema = z.object({
   name: z
     .string({ message: "Name is required" })
     .min(1, { message: "Name is required" }),
-  parentEmail: z
-    .string({ message: "Parent email is required" })
-    .email({ message: "Invalid email address" }),
+  parentEmail: z.string({ message: "Parent email is required" }).email(),
   username: z
     .string({ message: "Username is required" })
     .min(1, { message: "Username is required" }),
