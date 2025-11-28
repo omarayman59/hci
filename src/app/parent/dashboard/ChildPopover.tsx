@@ -27,10 +27,12 @@ import { UserPlus, X, Send, Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z
-    .string()
+    .string({ message: "Name is required" })
     .min(2, "Name must be at least 2 characters")
     .max(50, "Name must be less than 50 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z
+    .string({ message: "Email is required" })
+    .email("Please enter a valid email address"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
