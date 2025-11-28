@@ -176,7 +176,7 @@ const HomePage = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-base font-light text-muted-foreground">
-              © 2024 EduPlatform. All rights reserved.
+              © 2025 NG. All rights reserved.
             </div>
             <div className="flex items-center gap-8 text-base">
               <Link

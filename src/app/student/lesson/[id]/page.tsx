@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,12 +9,58 @@ import { ArrowLeft, Play, Lock, Upload, FileText, X } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 import { fireConfetti } from "@/utils/helpers";
 
+interface Lesson {
+  id: number;
+  title: string;
+  description: string;
+  nextLessonId?: number;
+}
+
+const lessonsData: Lesson[] = [
+  {
+    id: 1,
+    title: "Cultural Diversity",
+    description:
+      "Learn about different cultures around the world and their unique traditions",
+    nextLessonId: 2,
+  },
+  {
+    id: 2,
+    title: "Traditions & Celebrations",
+    description: "Explore traditions and celebrations from various cultures",
+    nextLessonId: 3,
+  },
+  {
+    id: 3,
+    title: "Global Cuisines",
+    description: "Discover global cuisines and their cultural significance",
+    nextLessonId: 4,
+  },
+  {
+    id: 4,
+    title: "Cultural Understanding",
+    description: "Understanding cultural diversity and building connections",
+  },
+];
+
 const LessonView = () => {
   const router = useRouter();
   const params = useParams();
   const id = params?.id as string;
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const currentLesson = useMemo(() => {
+    const lessonId = parseInt(id || "1", 10);
+    return (
+      lessonsData.find((lesson) => lesson.id === lessonId) || lessonsData[0]
+    );
+  }, [id]);
+
+  const upcomingLessons = useMemo(() => {
+    const lessonId = parseInt(id || "1", 10);
+    return lessonsData.filter((lesson) => lesson.id > lessonId);
+  }, [id]);
 
   function handleFileSelect(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -54,11 +100,10 @@ const LessonView = () => {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 space-y-1">
                     <CardTitle className="text-base font-normal tracking-tight">
-                      Lesson 1: Cultural Diversity
+                      Lesson {currentLesson.id}: {currentLesson.title}
                     </CardTitle>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Learn about different cultures around the world and their
-                      unique traditions
+                      {currentLesson.description}
                     </p>
                   </div>
                 </div>
@@ -74,7 +119,9 @@ const LessonView = () => {
                 </div>
                 <Button
                   className="w-full h-10 font-normal"
-                  onClick={() => router.push("/student/quiz/1")}
+                  onClick={() =>
+                    router.push(`/student/quiz/${currentLesson.id}`)
+                  }
                 >
                   Complete & Take Quiz
                 </Button>
@@ -133,65 +180,27 @@ const LessonView = () => {
           </div>
 
           {/* Upcoming Lessons */}
-          <div className="group">
-            <Card className="border rounded-lg opacity-60 hover:opacity-100 transition-opacity bg-card">
-              <CardHeader className="py-4">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 flex-1">
-                    <Lock className="h-4 w-4 text-muted-foreground shrink-0" />
-                    <div>
-                      <CardTitle className="text-base font-normal tracking-tight text-muted-foreground">
-                        Lesson 2: Global Communication
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground mt-0.5">
-                        Available after completing Lesson 1
-                      </p>
+          {upcomingLessons.map((lesson) => (
+            <div key={lesson.id} className="group">
+              <Card className="border rounded-lg opacity-60 hover:opacity-100 transition-opacity bg-card">
+                <CardHeader className="py-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 flex-1">
+                      <Lock className="h-4 w-4 text-muted-foreground shrink-0" />
+                      <div>
+                        <CardTitle className="text-base font-normal tracking-tight text-muted-foreground">
+                          Lesson {lesson.id}: {lesson.title}
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground mt-0.5">
+                          Available after completing Lesson {currentLesson.id}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardHeader>
-            </Card>
-          </div>
-
-          <div className="group">
-            <Card className="border rounded-lg opacity-60 hover:opacity-100 transition-opacity bg-card">
-              <CardHeader className="py-4">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 flex-1">
-                    <Lock className="h-4 w-4 text-muted-foreground shrink-0" />
-                    <div>
-                      <CardTitle className="text-base font-normal tracking-tight text-muted-foreground">
-                        Lesson 3: Cross-Cultural Understanding
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground mt-0.5">
-                        Available after completing Lesson 2
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          </div>
-
-          <div className="group">
-            <Card className="border rounded-lg opacity-60 hover:opacity-100 transition-opacity bg-card">
-              <CardHeader className="py-4">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 flex-1">
-                    <Lock className="h-4 w-4 text-muted-foreground shrink-0" />
-                    <div>
-                      <CardTitle className="text-base font-normal tracking-tight text-muted-foreground">
-                        Lesson 4: Building Global Connections
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground mt-0.5">
-                        Available after completing Lesson 3
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          </div>
+                </CardHeader>
+              </Card>
+            </div>
+          ))}
         </div>
       </main>
     </div>

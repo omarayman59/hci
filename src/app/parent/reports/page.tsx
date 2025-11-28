@@ -6,7 +6,7 @@ const AIReports = () => {
   const reports = [
     {
       title: "Emma's Learning Report - Week 47",
-      date: "Nov 20-26, 2024",
+      date: "Nov 20-26, 2025",
       subject: "Cultural Studies",
       highlights: [
         "Completed 4 lessons with 95% average score",
@@ -16,7 +16,7 @@ const AIReports = () => {
     },
     {
       title: "Liam's Learning Report - Week 47",
-      date: "Nov 20-26, 2024",
+      date: "Nov 20-26, 2025",
       subject: "World Geography",
       highlights: [
         "Completed 6 lessons with 88% average score",
