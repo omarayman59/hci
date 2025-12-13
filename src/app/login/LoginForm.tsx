@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
-import { loginFormSchema, type LoginFormType } from "./validation";
+
 import {
   Form,
   FormControl,
@@ -15,8 +18,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -24,6 +25,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+import { loginFormSchema, type LoginFormType } from "./validation";
 
 type LoginType = "student" | "parent";
 
