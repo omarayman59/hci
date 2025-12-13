@@ -1,6 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FileText, TrendingUp, Download } from "lucide-react";
+import DownloadReportButton from "./DownloadReportButton";
+
+import { FileText, TrendingUp } from "lucide-react";
 
 const AIReports = () => {
   const reports = [
@@ -91,13 +92,7 @@ const AIReports = () => {
 
                   {/* Action Button */}
                   <div className="pt-4 border-t border-border/40">
-                    <Button
-                      variant="ghost"
-                      className="w-full font-light text-muted-foreground hover:text-foreground group-hover:bg-muted/50 transition-colors"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      Download Full Report
-                    </Button>
+                    <DownloadReportButton />
                   </div>
                 </div>
               </CardContent>

@@ -1,10 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
-import { Trophy, Share2, ArrowLeft, Crown } from "lucide-react";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
+import { Share2, Crown } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 const Leaderboard = () => {
   const topPlayers = [
@@ -47,9 +52,12 @@ const Leaderboard = () => {
               {topPlayers.map((player, index) => (
                 <div
                   key={player.rank}
-                  className={`group flex items-center gap-4 px-6 py-5 transition-colors duration-200 ${
-                    player.rank === 1 ? "bg-primary/5" : "hover:bg-muted/50"
-                  }`}
+                  className={cn(
+                    "group flex items-center gap-4 px-6 py-5 transition-colors duration-200",
+                    {
+                      "bg-primary/10": player.rank === 1,
+                    }
+                  )}
                 >
                   {/* Rank Badge */}
                   <div className="w-8 shrink-0 flex items-center justify-center">
@@ -95,7 +103,8 @@ const Leaderboard = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-10 font-light text-muted-foreground hover:text-foreground"
+                className="cursor-pointer h-10 font-light text-muted-foreground hover:text-foreground"
+                onClick={() => toast.success("Leaderboard shared successfully")}
               >
                 <Share2 className="w-4 h-4 mr-2" />
                 Share

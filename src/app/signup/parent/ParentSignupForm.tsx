@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
+import { EyeOffIcon, EyeIcon, Loader2 } from "lucide-react";
 import { parentSignupSchema, type ParentSignupFormType } from "./validation";
 import {
   Form,
@@ -28,6 +28,9 @@ import {
 const ParentSignupForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
 
   const form = useForm<ParentSignupFormType>({
     resolver: zodResolver(parentSignupSchema),
@@ -35,6 +38,7 @@ const ParentSignupForm = () => {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -128,13 +132,63 @@ const ParentSignupForm = () => {
                         Password
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="Create a secure password"
-                          className="font-light"
-                          disabled={isLoading}
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Create a secure password"
+                            className="font-light"
+                            disabled={isLoading}
+                            {...field}
+                          />
+
+                          <button
+                            className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                          >
+                            {showPassword ? (
+                              <EyeOffIcon className="size-4" />
+                            ) : (
+                              <EyeIcon className="size-4" />
+                            )}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs font-light" />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-light text-foreground">
+                        Confirm Password
+                      </FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            type={showConfirmPassword ? "text" : "password"}
+                            placeholder="Confirm your password"
+                            className="font-light"
+                            disabled={isLoading}
+                            {...field}
+                          />
+
+                          <button
+                            className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2"
+                            onClick={() =>
+                              setShowConfirmPassword((prev) => !prev)
+                            }
+                          >
+                            {showConfirmPassword ? (
+                              <EyeOffIcon className="size-4" />
+                            ) : (
+                              <EyeIcon className="size-4" />
+                            )}
+                          </button>
+                        </div>
                       </FormControl>
                       <FormMessage className="text-xs font-light" />
                     </FormItem>

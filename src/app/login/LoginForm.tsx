@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { loginFormSchema, type LoginFormType } from "./validation";
 import {
   Form,
@@ -33,7 +33,8 @@ interface LoginFormProps {
 
 const LoginForm = ({ type }: LoginFormProps) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
@@ -129,13 +130,26 @@ const LoginForm = ({ type }: LoginFormProps) => {
                         Password
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="Enter your password"
-                          className="font-light"
-                          disabled={isLoading}
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter your password"
+                            className="font-light"
+                            disabled={isLoading}
+                            {...field}
+                          />
+
+                          <button
+                            className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                          >
+                            {showPassword ? (
+                              <EyeOffIcon className="size-4" />
+                            ) : (
+                              <EyeIcon className="size-4" />
+                            )}
+                          </button>
+                        </div>
                       </FormControl>
                       <FormMessage className="text-xs font-light" />
                     </FormItem>
