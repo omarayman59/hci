@@ -147,6 +147,7 @@ const LoginForm = ({ type }: LoginFormProps) => {
                           <button
                             className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2"
                             onClick={() => setShowPassword((prev) => !prev)}
+                            type="button"
                           >
                             {showPassword ? (
                               <EyeOffIcon className="size-4" />

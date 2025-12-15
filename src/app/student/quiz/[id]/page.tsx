@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useRouter, useParams } from "next/navigation";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 interface QuizQuestion {
   question: string;
@@ -152,9 +153,9 @@ const Quiz = () => {
   const router = useRouter();
   const params = useParams();
   const id = params?.id as string;
-  const [selectedAnswer, setSelectedAnswer] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const lessonId = useMemo(() => {
     return parseInt(id || "1", 10);
@@ -184,6 +185,18 @@ const Quiz = () => {
   return (
     <div className="bg-background flex items-center justify-center p-6">
       <div className="w-full max-w-3xl">
+        <div className="mb-6">
+          <Button
+            variant="ghost"
+            className="font-light text-muted-foreground hover:text-foreground"
+            asChild
+          >
+            <Link href="/student/dashboard">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Link>
+          </Button>
+        </div>
         {!isSubmitted ? (
           <div className="space-y-12">
             {/* Header */}

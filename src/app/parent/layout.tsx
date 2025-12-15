@@ -3,7 +3,15 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, Home, FileText, ChartArea, Menu, X } from "lucide-react";
+import {
+  LogOut,
+  Home,
+  FileText,
+  ChartArea,
+  Menu,
+  X,
+  HelpCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Drawer,
@@ -13,6 +21,11 @@ import {
   DrawerTrigger,
   DrawerClose,
 } from "@/components/ui/drawer";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
 
@@ -126,6 +139,56 @@ function ParentNavbar() {
                       onClick={() => setDrawerOpen(false)}
                     />
                   ))}
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="font-light text-sm text-muted-foreground hover:text-foreground h-9 px-4 w-full justify-start"
+                        aria-label="Help"
+                      >
+                        <HelpCircle className="w-4 h-4 mr-2" />
+                        Help
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80">
+                      <div className="space-y-3">
+                        <h4 className="font-medium text-sm">
+                          Help Instructions
+                        </h4>
+                        <ul className="space-y-2 text-sm text-muted-foreground">
+                          <li className="flex gap-2">
+                            <span className="font-medium text-foreground">
+                              1.
+                            </span>
+                            <span>
+                              Press AI reports to see AI generated reports for
+                              your registered children, and be able to download
+                              a report
+                            </span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-medium text-foreground">
+                              2.
+                            </span>
+                            <span>
+                              Press on a certain child to view their progress
+                              and see their AI generated reports
+                            </span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="font-medium text-foreground">
+                              3.
+                            </span>
+                            <span>
+                              Press add child to register a new child to your
+                              account
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                   <Link href="/" onClick={() => setDrawerOpen(false)}>
                     <Button
                       variant="ghost"
@@ -142,6 +205,47 @@ function ParentNavbar() {
           ) : (
             /* Desktop Actions */
             <div className="flex items-center gap-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="font-light text-sm text-muted-foreground hover:text-foreground h-9 px-4"
+                    aria-label="Help"
+                  >
+                    <HelpCircle className="w-4 h-4 mr-2" />
+                    Help
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80" align="end">
+                  <div className="space-y-3">
+                    <h4 className="font-medium text-sm">Help Instructions</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex gap-2">
+                        <span className="font-medium text-foreground">1.</span>
+                        <span>
+                          Press AI reports to see AI generated reports for your
+                          registered children
+                        </span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="font-medium text-foreground">2.</span>
+                        <span>
+                          Press on a certain child to view their progress and
+                          see their AI generated reports
+                        </span>
+                      </li>
+                      <li className="flex gap-2">
+                        <span className="font-medium text-foreground">3.</span>
+                        <span>
+                          Press add child to register a new child to your
+                          account
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Link href="/">
                 <Button
                   variant="ghost"

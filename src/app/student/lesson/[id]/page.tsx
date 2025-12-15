@@ -92,6 +92,18 @@ const LessonView = () => {
   return (
     <div className="bg-background">
       <main className="container mx-auto max-w-5xl px-6 py-12">
+        <div className="mb-6">
+          <Button
+            variant="ghost"
+            className="font-light text-muted-foreground hover:text-foreground"
+            asChild
+          >
+            <Link href="/student/dashboard">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Link>
+          </Button>
+        </div>
         <div className="space-y-3">
           {/* Active Lesson */}
           <div className="group">

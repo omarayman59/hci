@@ -144,6 +144,7 @@ const ParentSignupForm = () => {
                           <button
                             className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2"
                             onClick={() => setShowPassword((prev) => !prev)}
+                            type="button"
                           >
                             {showPassword ? (
                               <EyeOffIcon className="size-4" />
@@ -181,6 +182,7 @@ const ParentSignupForm = () => {
                             onClick={() =>
                               setShowConfirmPassword((prev) => !prev)
                             }
+                            type="button"
                           >
                             {showConfirmPassword ? (
                               <EyeOffIcon className="size-4" />
